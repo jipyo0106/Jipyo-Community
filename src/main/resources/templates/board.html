@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Jipyo Community</title>
+</head>
+<body>
+    <h2>Community</h2>
+    <a th:href="@{/board/registe/}">글쓰기</a>
+    <table id="board-body", border="1" >
+        <thead id="board-header">
+            <th>id</th>
+            <th>title</th>
+            <th>name</th>
+            <th>date</th>
+        </thead>
+      <tbody id="board-data" th:each="board : ${list} ">
+          <td th:text="${board.id}"></td>
+          <td><a th:text="${board.title}" th:href="@{/board(id=${board.id})}"></a></td>
+          <td th:text="${board.name}"></td>
+          <td th:text="${#temporals.format(board.date, 'MM-dd HH:mm')}"></td>
+
+      </tbody>
+    </table>
+</body>
+</html>

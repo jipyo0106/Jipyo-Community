@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="kn" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Jipyo Community</title>
+    <script type="text/javascript">
+        function moveBoardMain () {
+            const BOARD = "board"
+            location.href = BOARD + "/";
+        }
+    </script>
+</head>
+<body>
+    <div id="board">
+        <div onclick="moveBoardMain()">목록</div>
+        <h3 id="title" th:text="${title}"></h3>
+        <p id="name" th:text="${name}"></p>
+        <p id="date"th:text="${#temporals.format(date, 'MM-dd HH:mm')}"></p>
+        <div id="content">
+            <div id="content-text" th:text="${content}"></div>
+        </div>
+    </div>
+</body>
+</html>
