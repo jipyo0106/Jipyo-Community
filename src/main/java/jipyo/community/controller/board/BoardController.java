@@ -30,7 +30,6 @@ public class BoardController {
     public String showBoard (@RequestParam(value = "id") Long id, Model model) {
         ResponseBoardVO vo = boardService.getBoard(id);
 
-        System.out.println(vo.getDate());
         model.addAttribute("name", vo.getName());
         model.addAttribute("title", vo.getTitle());
         model.addAttribute("content", vo.getContent());

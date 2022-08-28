@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'jipyo'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2-REALEASE'
 sourceCompatibility = '11'
 
 repositories {

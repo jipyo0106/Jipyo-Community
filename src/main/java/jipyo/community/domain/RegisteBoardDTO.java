@@ -1,15 +1,13 @@
 package jipyo.community.domain;
 
 import jipyo.community.domain.entity.Board;
-import lombok.Data;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
-@Data
-@Getter @Setter
+@Getter
 public class RegisteBoardDTO {
     @NotEmpty
     private String name;
@@ -18,8 +16,17 @@ public class RegisteBoardDTO {
     @NotEmpty
     private String content;
 
+    private LocalDateTime date;
+
+    public RegisteBoardDTO(String name, String title, String content) {
+        this.name = name;
+        this.title = title;
+        this.content = content;
+        this.date = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
+    }
+
     public Board toBoardEntity() {
-        return new Board(null, name, title, content, LocalDateTime.now());
+        return new Board(null, name, title, content, date);
     }
 
 }

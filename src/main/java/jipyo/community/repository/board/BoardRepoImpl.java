@@ -22,7 +22,7 @@ public class BoardRepoImpl implements SelectBoard {
 
     @Override
     public List<Board> find() {
-        Query query = entityManager.createQuery("SELECT b FROM Board b", Board.class);
+        Query query = entityManager.createQuery("SELECT bv FROM Board bv ORDER BY bv.id DESC", Board.class);
         return query.getResultList();
     }
 }
