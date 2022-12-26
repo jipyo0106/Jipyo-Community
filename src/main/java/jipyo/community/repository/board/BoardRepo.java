@@ -4,7 +4,7 @@ import jipyo.community.domain.entity.Board;
 
 import java.util.List;
 
-public interface SelectBoard {
+public interface BoardRepo {
     Board findById(Long id);
     List<Board> find();
 }

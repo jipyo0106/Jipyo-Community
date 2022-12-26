@@ -20,17 +20,15 @@ public class BoardServiceImpl implements BoardService{
 
 
     @Override
-    public ResponseBoardVO getBoard(Long id) {
+    public ResponseBoardVO findBoard(Long id) {
         return boardRepo.findById(id).toResponseBoardDTO();
     }
 
     @Override
-    public List<ResponseBoardVO> getBoardList() {
+    public List<ResponseBoardVO> findBoardList() {
         return boardRepo.find()
                 .stream()
                 .map(Board::toResponseBoardDTO)
                 .collect(Collectors.toList());
     }
-
-
 }

@@ -1,7 +1,6 @@
 package jipyo.community.repository.board;
 
 import jipyo.community.domain.entity.Board;
-
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -10,7 +9,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 @Repository
-public class BoardRepoImpl implements SelectBoard {
+public class BoardRepoImpl implements BoardRepo {
     @PersistenceContext
     private EntityManager entityManager;
 

@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface BoardService {
 
-    ResponseBoardVO getBoard(Long id);
+    ResponseBoardVO findBoard(Long id);
 
-    List<ResponseBoardVO> getBoardList();
+    List<ResponseBoardVO> findBoardList();
 
 }

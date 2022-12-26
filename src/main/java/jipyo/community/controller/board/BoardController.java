@@ -25,7 +25,7 @@ public class BoardController {
     public ResponseEntity<Map<String, Object>> boardList() {
         HttpHeaders headers = new HttpHeaders();
 
-        List<ResponseBoardVO> boards = boardService.getBoardList();
+        List<ResponseBoardVO> boards = boardService.findBoardList();
 
         Map<String, Object> body = new HashMap<>();
         body.put("board-list", boards);
@@ -37,7 +37,7 @@ public class BoardController {
     @RequestMapping(value = "board/{board-index}", method = RequestMethod.GET)
     public ResponseEntity<ResponseBoardVO> boardDetails(@PathVariable(value = "board-index") Long index) {
         HttpHeaders headers = new HttpHeaders();
-        ResponseBoardVO vo = boardService.getBoard(index);
+        ResponseBoardVO vo = boardService.findBoard(index);
 
         return new ResponseEntity<>(vo, headers, HttpStatus.OK);
     }
