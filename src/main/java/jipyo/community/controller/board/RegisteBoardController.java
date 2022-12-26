@@ -1,34 +1,35 @@
 package jipyo.community.controller.board;
 
 import jipyo.community.domain.RegisteBoardDTO;
-import jipyo.community.service.board.BoardServiceImpl;
+import jipyo.community.service.board.BoardService;
 import jipyo.community.service.board.RegisteBoardService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.net.URI;
 
-@Controller
+@RestController
 @RequestMapping(value = "board/registe")
 public class RegisteBoardController {
-    private final BoardServiceImpl boardService;
+    private final BoardService boardService;
     private final RegisteBoardService registeBoardService;
 
-    public RegisteBoardController(BoardServiceImpl boardService, RegisteBoardService registeBoardService) {
+    public RegisteBoardController(BoardService boardService, RegisteBoardService registeBoardService) {
         this.boardService = boardService;
         this.registeBoardService = registeBoardService;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String registeForm() {
-        return "registeForm";
-    }
+    @RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity registeBoard(@RequestBody @Valid RegisteBoardDTO board) {
+        HttpHeaders headers = new HttpHeaders();
 
-    @RequestMapping(value = "/", method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String registeBoard(@Valid RegisteBoardDTO board) {
-        long id = registeBoardService.registeBoardService(board);
-        return "redirect:/board?id=" + id;
+        long index = registeBoardService.registeBoardService(board);
+        headers.setLocation(URI.create("/board/=" + index));
+
+        return new ResponseEntity(null, headers, HttpStatus.CREATED);
     }
 }

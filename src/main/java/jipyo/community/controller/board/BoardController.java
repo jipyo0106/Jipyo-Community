@@ -1,40 +1,44 @@
 package jipyo.community.controller.board;
 
 import jipyo.community.domain.ResponseBoardVO;
-import jipyo.community.service.board.BoardServiceImpl;
+import jipyo.community.service.board.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-@Controller
-@RequestMapping(value = "board")
+@RestController
 public class BoardController {
-    private final BoardServiceImpl boardService;
+    private final BoardService boardService;
 
     @Autowired
-    public BoardController(BoardServiceImpl board) {
+    public BoardController(BoardService board) {
         this.boardService = board;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String indexPage(Model model) {
-        List<ResponseBoardVO> vo = boardService.getBoardList();
-        model.addAttribute("list", vo);
-        return "board";
+    @RequestMapping(value = "board/", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> boardList() {
+        HttpHeaders headers = new HttpHeaders();
+
+        List<ResponseBoardVO> boards = boardService.getBoardList();
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("board-list", boards);
+        body.put("boards-length", boards.size());
+
+        return new ResponseEntity<>(body, headers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public String showBoard (@RequestParam(value = "id") Long id, Model model) {
-        ResponseBoardVO vo = boardService.getBoard(id);
+    @RequestMapping(value = "board/{board-index}", method = RequestMethod.GET)
+    public ResponseEntity<ResponseBoardVO> boardDetails(@PathVariable(value = "board-index") Long index) {
+        HttpHeaders headers = new HttpHeaders();
+        ResponseBoardVO vo = boardService.getBoard(index);
 
-        model.addAttribute("name", vo.getName());
-        model.addAttribute("title", vo.getTitle());
-        model.addAttribute("content", vo.getContent());
-        model.addAttribute("date", vo.getDate());
-
-        return "detailBoard";
+        return new ResponseEntity<>(vo, headers, HttpStatus.OK);
     }
 }
