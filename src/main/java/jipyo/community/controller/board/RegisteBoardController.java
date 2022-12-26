@@ -28,7 +28,7 @@ public class RegisteBoardController {
         HttpHeaders headers = new HttpHeaders();
 
         long index = registeBoardService.registeBoardService(board);
-        headers.setLocation(URI.create("/board/=" + index));
+        headers.setLocation(URI.create("/board/" + index));
 
         return new ResponseEntity(null, headers, HttpStatus.CREATED);
     }
